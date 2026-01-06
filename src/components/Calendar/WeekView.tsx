@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useSchedule } from '@/stores/ScheduleContext';
+import { useSchedule } from '@/stores/useSchedule';
 import type { DayOfWeek, ScheduleEvent } from '@/types';
 import { DAYS_OF_WEEK, generateTimeSlots } from '@/types';
 import { timeToMinutes } from '@/utils/timeHelpers';

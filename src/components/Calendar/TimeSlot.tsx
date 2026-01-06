@@ -1,5 +1,5 @@
 import type { DayOfWeek, TimeSlot as TimeSlotType } from '@/types';
-import { useSchedule } from '@/stores/ScheduleContext';
+import { useSchedule } from '@/stores/useSchedule';
 
 interface TimeSlotProps {
   slot: TimeSlotType;

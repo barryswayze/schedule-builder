@@ -1,4 +1,4 @@
-import { useSchedule } from '@/stores/ScheduleContext';
+import { useSchedule } from '@/stores/useSchedule';
 import { Button } from '@/components/ui/button';
 
 export function Sidebar() {

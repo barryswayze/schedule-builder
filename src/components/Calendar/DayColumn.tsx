@@ -1,6 +1,6 @@
 import { useDroppable } from '@dnd-kit/core';
 import { DAYS_OF_WEEK, generateTimeSlots, type DayOfWeek } from '@/types';
-import { useSchedule } from '@/stores/ScheduleContext';
+import { useSchedule } from '@/stores/useSchedule';
 import { TimeSlot } from './TimeSlot';
 import { EventBlock } from './EventBlock';
 

@@ -2,7 +2,7 @@ import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import type { ScheduleEvent } from '@/types';
 import { formatTimeRange, timeToMinutes } from '@/utils/timeHelpers';
-import { useSchedule } from '@/stores/ScheduleContext';
+import { useSchedule } from '@/stores/useSchedule';
 
 interface EventBlockProps {
   event: ScheduleEvent;

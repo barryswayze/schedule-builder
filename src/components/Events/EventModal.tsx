@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -16,9 +16,68 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useSchedule } from '@/stores/ScheduleContext';
+import { useSchedule } from '@/stores/useSchedule';
 import { DAYS_OF_WEEK, type DayOfWeek, type RecurrenceFrequency } from '@/types';
 import { DURATION_OPTIONS } from '@/utils/timeHelpers';
+
+interface FormState {
+  title: string;
+  description: string;
+  daysOfWeek: DayOfWeek[];
+  startTime: string;
+  duration: number;
+  activityType: string;
+  customType: string;
+  recurrence: RecurrenceFrequency;
+  recurrenceEndDate: string;
+  notificationEnabled: boolean;
+}
+
+function getInitialFormState(
+  selectedEvent: ReturnType<typeof useSchedule>['state']['selectedEvent'],
+  creatingEventSlot: ReturnType<typeof useSchedule>['state']['creatingEventSlot']
+): FormState {
+  if (selectedEvent) {
+    return {
+      title: selectedEvent.title,
+      description: selectedEvent.description || '',
+      daysOfWeek: selectedEvent.daysOfWeek,
+      startTime: selectedEvent.startTime,
+      duration: selectedEvent.duration,
+      activityType: selectedEvent.activityType,
+      customType: '',
+      recurrence: selectedEvent.recurrence,
+      recurrenceEndDate: selectedEvent.recurrenceEndDate || '',
+      notificationEnabled: selectedEvent.notificationEnabled,
+    };
+  }
+  if (creatingEventSlot) {
+    return {
+      title: '',
+      description: '',
+      daysOfWeek: [creatingEventSlot.dayOfWeek],
+      startTime: creatingEventSlot.startTime,
+      duration: 1,
+      activityType: 'Work From Home',
+      customType: '',
+      recurrence: 'weekly',
+      recurrenceEndDate: '',
+      notificationEnabled: true,
+    };
+  }
+  return {
+    title: '',
+    description: '',
+    daysOfWeek: [0],
+    startTime: '09:00',
+    duration: 1,
+    activityType: 'Work From Home',
+    customType: '',
+    recurrence: 'weekly',
+    recurrenceEndDate: '',
+    notificationEnabled: true,
+  };
+}
 
 export function EventModal() {
   const {
@@ -34,46 +93,23 @@ export function EventModal() {
   const isEditing = selectedEvent !== null;
   const allTypes = getAllActivityTypes();
 
-  // Form state
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [daysOfWeek, setDaysOfWeek] = useState<DayOfWeek[]>([0]);
-  const [startTime, setStartTime] = useState('09:00');
-  const [duration, setDuration] = useState(1);
-  const [activityType, setActivityType] = useState('Work From Home');
-  const [customType, setCustomType] = useState('');
-  const [recurrence, setRecurrence] = useState<RecurrenceFrequency>('weekly');
-  const [recurrenceEndDate, setRecurrenceEndDate] = useState('');
-  const [notificationEnabled, setNotificationEnabled] = useState(true);
+  // Compute initial state based on modal context
+  const initialFormState = useMemo(
+    () => getInitialFormState(selectedEvent, creatingEventSlot),
+    [selectedEvent, creatingEventSlot]
+  );
 
-  // Reset form when modal opens
-  useEffect(() => {
-    if (isModalOpen) {
-      if (selectedEvent) {
-        setTitle(selectedEvent.title);
-        setDescription(selectedEvent.description || '');
-        setDaysOfWeek(selectedEvent.daysOfWeek);
-        setStartTime(selectedEvent.startTime);
-        setDuration(selectedEvent.duration);
-        setActivityType(selectedEvent.activityType);
-        setCustomType('');
-        setRecurrence(selectedEvent.recurrence);
-        setRecurrenceEndDate(selectedEvent.recurrenceEndDate || '');
-        setNotificationEnabled(selectedEvent.notificationEnabled);
-      } else if (creatingEventSlot) {
-        setTitle('');
-        setDescription('');
-        setDaysOfWeek([creatingEventSlot.dayOfWeek]);
-        setStartTime(creatingEventSlot.startTime);
-        setDuration(1);
-        setActivityType('Work From Home');
-        setCustomType('');
-        setRecurrence('weekly');
-        setRecurrenceEndDate('');
-        setNotificationEnabled(true);
-      }
-    }
-  }, [isModalOpen, selectedEvent, creatingEventSlot]);
+  // Form state - uses key prop on Dialog to reset when modal opens
+  const [title, setTitle] = useState(initialFormState.title);
+  const [description, setDescription] = useState(initialFormState.description);
+  const [daysOfWeek, setDaysOfWeek] = useState<DayOfWeek[]>(initialFormState.daysOfWeek);
+  const [startTime, setStartTime] = useState(initialFormState.startTime);
+  const [duration, setDuration] = useState(initialFormState.duration);
+  const [activityType, setActivityType] = useState(initialFormState.activityType);
+  const [customType, setCustomType] = useState(initialFormState.customType);
+  const [recurrence, setRecurrence] = useState<RecurrenceFrequency>(initialFormState.recurrence);
+  const [recurrenceEndDate, setRecurrenceEndDate] = useState(initialFormState.recurrenceEndDate);
+  const [notificationEnabled, setNotificationEnabled] = useState(initialFormState.notificationEnabled);
 
   const toggleDay = (day: DayOfWeek) => {
     setDaysOfWeek((prev) => {
@@ -127,8 +163,11 @@ export function EventModal() {
     }
   };
 
+  // Generate a key to force form reset when modal context changes
+  const modalKey = selectedEvent?.id || creatingEventSlot?.startTime || 'new';
+
   return (
-    <Dialog open={isModalOpen} onOpenChange={(open) => !open && closeModal()}>
+    <Dialog key={modalKey} open={isModalOpen} onOpenChange={(open) => !open && closeModal()}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>{isEditing ? 'Edit Event' : 'Create Event'}</DialogTitle>

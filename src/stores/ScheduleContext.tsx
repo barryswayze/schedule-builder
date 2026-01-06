@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useEffect, useMemo, type ReactNode } from 'react';
+import { useReducer, useEffect, useMemo, type ReactNode } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import type { ScheduleEvent, User, DayOfWeek, CustomActivityType } from '@/types';
 import { DEFAULT_ACTIVITY_TYPES } from '@/types';
@@ -11,6 +11,7 @@ import {
   saveCustomActivityTypes,
   loadCustomActivityTypes,
 } from '@/utils/localStorage';
+import { ScheduleContext, type ScheduleState } from './scheduleContextDef';
 
 // Action types
 type Action =
@@ -27,17 +28,6 @@ type Action =
   | { type: 'ADD_CUSTOM_ACTIVITY_TYPE'; activityType: CustomActivityType }
   | { type: 'DELETE_CUSTOM_ACTIVITY_TYPE'; name: string }
   | { type: 'SET_ACTIVITY_TYPE_MODAL_OPEN'; isOpen: boolean };
-
-// State interface
-interface ScheduleState {
-  events: ScheduleEvent[];
-  user: User;
-  selectedEvent: ScheduleEvent | null;
-  isModalOpen: boolean;
-  creatingEventSlot: { dayOfWeek: DayOfWeek; startTime: string } | null;
-  customActivityTypes: CustomActivityType[];
-  isActivityTypeModalOpen: boolean;
-}
 
 // Initial state
 const initialState: ScheduleState = {
@@ -96,34 +86,7 @@ function scheduleReducer(state: ScheduleState, action: Action): ScheduleState {
   }
 }
 
-// Context type
-interface ScheduleContextType {
-  state: ScheduleState;
-  // Event actions
-  addEvent: (eventData: Omit<ScheduleEvent, 'id' | 'userId' | 'createdAt' | 'updatedAt'>) => void;
-  updateEvent: (event: ScheduleEvent) => void;
-  deleteEvent: (eventId: string) => void;
-  // User actions
-  updateUser: (userData: Partial<User>) => void;
-  // Modal actions
-  openCreateModal: (dayOfWeek: DayOfWeek, startTime: string) => void;
-  openEditModal: (event: ScheduleEvent) => void;
-  closeModal: () => void;
-  // Activity type actions
-  addCustomActivityType: (activityType: CustomActivityType) => void;
-  deleteCustomActivityType: (name: string) => void;
-  openActivityTypeModal: () => void;
-  closeActivityTypeModal: () => void;
-  // Getters
-  getEventsForDay: (dayOfWeek: DayOfWeek) => ScheduleEvent[];
-  getAllActivityTypes: () => Record<string, string>;
-  getActivityColor: (activityType: string) => string;
-}
-
-// Create context
-const ScheduleContext = createContext<ScheduleContextType | undefined>(undefined);
-
-// Provider component
+// Provider component - only component export from this file
 export function ScheduleProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(scheduleReducer, initialState);
 
@@ -242,10 +205,10 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
   };
 
   const getActivityColor = (activityType: string): string => {
-    return allActivityTypes[activityType] || '#64748b'; // Default to slate if not found
+    return allActivityTypes[activityType] || '#64748b';
   };
 
-  const contextValue: ScheduleContextType = {
+  const contextValue = {
     state,
     addEvent,
     updateEvent,
@@ -268,13 +231,4 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
       {children}
     </ScheduleContext.Provider>
   );
-}
-
-// Hook to use the context
-export function useSchedule(): ScheduleContextType {
-  const context = useContext(ScheduleContext);
-  if (context === undefined) {
-    throw new Error('useSchedule must be used within a ScheduleProvider');
-  }
-  return context;
 }

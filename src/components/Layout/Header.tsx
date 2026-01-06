@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { useSchedule } from '@/stores/ScheduleContext';
+import { useSchedule } from '@/stores/useSchedule';
 import { downloadICS } from '@/utils/icsGenerator';
 
 export function Header() {
