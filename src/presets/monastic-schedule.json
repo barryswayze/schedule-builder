@@ -1,0 +1,213 @@
+{
+  "name": "Monastic Schedule",
+  "description": "Disciplined weekly schedule balancing fitness, prayer, and FS exam study. Created Oct 2025 for PLS exam prep.",
+  "source": "Claude.ai export 2026-01-14",
+  "targetDate": "2026-04-30",
+  "events": [
+    {
+      "id": "monastic-weights-push",
+      "title": "Push Day (Chest/Shoulders/Triceps)",
+      "description": "1 hour weight training - push movements",
+      "daysOfWeek": [1],
+      "startTime": "05:00",
+      "duration": 1,
+      "activityType": "Solo Weights",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-weights-pull",
+      "title": "Pull Day (Back/Biceps)",
+      "description": "1 hour weight training - pull movements",
+      "daysOfWeek": [3],
+      "startTime": "05:00",
+      "duration": 1,
+      "activityType": "Solo Weights",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-weights-legs",
+      "title": "Legs Day (Quads/Hams/Glutes)",
+      "description": "1 hour weight training - leg movements",
+      "daysOfWeek": [5],
+      "startTime": "05:00",
+      "duration": 1,
+      "activityType": "Solo Weights",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-cardio-norwegian",
+      "title": "Norwegian 4x4 Intervals",
+      "description": "4x4min at 90-95% max HR, 3min recovery. Total 32min.",
+      "daysOfWeek": [2],
+      "startTime": "05:00",
+      "duration": 0.75,
+      "activityType": "Cardio",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-cardio-jog",
+      "title": "30min Easy Jog",
+      "description": "Zone 2 pace, conversational",
+      "daysOfWeek": [4],
+      "startTime": "05:00",
+      "duration": 0.5,
+      "activityType": "Cardio",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-cardio-bike-1",
+      "title": "Zone 2 Bicycle",
+      "description": "90min steady state cycling",
+      "daysOfWeek": [0],
+      "startTime": "06:00",
+      "duration": 1.5,
+      "activityType": "Cardio",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-cardio-bike-2",
+      "title": "Zone 2 Bicycle",
+      "description": "90min steady state cycling",
+      "daysOfWeek": [6],
+      "startTime": "06:00",
+      "duration": 1.5,
+      "activityType": "Cardio",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-prayer-morning",
+      "title": "Morning Prayer",
+      "description": "Daily morning prayer/liturgy",
+      "daysOfWeek": [0, 1, 2, 3, 4, 5, 6],
+      "startTime": "08:00",
+      "duration": 1,
+      "activityType": "Prayer/Liturgy",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-prayer-evening",
+      "title": "Evening Prayer",
+      "description": "Daily evening prayer. Phone away after this.",
+      "daysOfWeek": [0, 1, 2, 3, 4, 5, 6],
+      "startTime": "20:00",
+      "duration": 1,
+      "activityType": "Prayer/Liturgy",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-desk-break-mon",
+      "title": "Desk Break - Neck Weights",
+      "description": "Neck strengthening exercises",
+      "daysOfWeek": [1],
+      "startTime": "12:00",
+      "duration": 0.25,
+      "activityType": "Desk Breaks",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-desk-break-tue",
+      "title": "Desk Break - Jumping Jacks",
+      "description": "100 jumping jacks, get blood flowing",
+      "daysOfWeek": [2],
+      "startTime": "12:00",
+      "duration": 0.25,
+      "activityType": "Desk Breaks",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-desk-break-wed",
+      "title": "Desk Break - Push-ups",
+      "description": "3 sets max reps",
+      "daysOfWeek": [3],
+      "startTime": "12:00",
+      "duration": 0.25,
+      "activityType": "Desk Breaks",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-desk-break-thu",
+      "title": "Desk Break - Neck Weights",
+      "description": "Neck strengthening exercises",
+      "daysOfWeek": [4],
+      "startTime": "12:00",
+      "duration": 0.25,
+      "activityType": "Desk Breaks",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-desk-break-fri",
+      "title": "Desk Break - Jumping Jacks + Push-ups",
+      "description": "Combo day - 50 JJ, 2 sets push-ups",
+      "daysOfWeek": [5],
+      "startTime": "12:00",
+      "duration": 0.25,
+      "activityType": "Desk Breaks",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-study-calculator-1",
+      "title": "FS Study - Calculator Practice",
+      "description": "NCEES calculator drills, timed problems",
+      "daysOfWeek": [1, 3],
+      "startTime": "18:00",
+      "duration": 1.5,
+      "activityType": "Study",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-study-calculator-2",
+      "title": "FS Study - Calculator Practice",
+      "description": "NCEES calculator drills, timed problems",
+      "daysOfWeek": [6],
+      "startTime": "14:00",
+      "duration": 2,
+      "activityType": "Study",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-study-weakpoints",
+      "title": "FS Study - Weakpoints Review",
+      "description": "Review missed questions from practice tests",
+      "daysOfWeek": [2, 4],
+      "startTime": "18:00",
+      "duration": 1,
+      "activityType": "Study",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    },
+    {
+      "id": "monastic-study-practice-test",
+      "title": "FS Practice Test",
+      "description": "Full timed practice exam, review weakpoints after",
+      "daysOfWeek": [0],
+      "startTime": "14:00",
+      "duration": 2,
+      "activityType": "Study",
+      "recurrence": "weekly",
+      "notificationEnabled": true
+    }
+  ],
+  "weeklyTotals": {
+    "weights": "3 hours (Push/Pull/Legs)",
+    "cardio": "5 hours (4x4, jog, 2x bike)",
+    "prayer": "7 hours (1hr AM + 1hr PM daily)",
+    "study": "9 hours (5hr calculator, 4hr weakpoints/tests)",
+    "deskBreaks": "1.25 hours (15min x 5 days)"
+  }
+}
